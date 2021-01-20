@@ -1,5 +1,5 @@
 import './App.css';
-import {PianoKey, SoundButton} from './SoundButton';
+import { SoundButton } from './SoundButton';
 
 function App() {
   return (

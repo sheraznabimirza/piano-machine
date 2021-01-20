@@ -1,4 +1,4 @@
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 
 const sounds = [
     {
@@ -41,30 +41,48 @@ const sounds = [
 
 export function SoundButton() {
 
+    const [title, setTitle] = useState("Play a sound");
+
     return (
         <div className="container">
-            <h1>Play a sound</h1>
+            <h1>{title}</h1>
             {sounds.map((sound, ind) => (
-            <PianoKey letter={sound.key} key={ind} audio={sound.mp3} />))}
+            <PianoKey letter={sound.key} key={ind} audio={sound.mp3} setTitle={setTitle} />))}
         </div>
     );
 }
+
+
 
 function PianoKey(props) {
 
     const audioRef = useRef(null);
 
     const playSound = () => {
+        const newTitle = props.letter + " is playing!";
         audioRef.current.play();
+        props.setTitle(newTitle);
     }
 
+    const handleKeyDown = (e) => {
+        const id = props.letter;
+        if(e.key.toUpperCase() === id) {
+            playSound();
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+        }
+    });
+
     return (
-        <div className="drum-pad" onClick={playSound}>
+        <div className="drum-pad" onClick={playSound} >
             {props.letter}
-            <audio ref={audioRef} src={props.audio} id={props.key}></audio>
+            <audio ref={audioRef} src={props.audio} id={props.letter}></audio>
         </div>
         
     );
-
 }
-
