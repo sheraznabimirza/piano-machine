@@ -42,7 +42,11 @@
     width: 100px;
   }
 
-  .drum-pad:active {
-      transform: scale(0.95);
-      opacity: 0.8;
+  .drum-pad:hover {
+      opacity: 0.95;
+  }
+
+  .drum-pad.active {
+    transform: scale(0.95);
+    opacity: 0.8;
   }

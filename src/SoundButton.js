@@ -52,21 +52,33 @@ export function SoundButton() {
     );
 }
 
-
-
 function PianoKey(props) {
 
     const audioRef = useRef(null);
+    const btnRef  = useRef(null);
+
+    const [btnClass, setBtnClass] = useState("drum-pad")
+
+    const btnPress = () => {
+        const newClass = "drum-pad active";
+        setBtnClass(newClass);
+        
+    }
 
     const playSound = () => {
+        
         const newTitle = props.letter + " is playing!";
         audioRef.current.play();
+        btnPress();
         props.setTitle(newTitle);
     }
 
     const handleKeyDown = (e) => {
         const id = props.letter;
         if(e.key.toUpperCase() === id) {
+            
+            console.log(btnRef.current.className)
+            
             playSound();
         }
     }
@@ -79,7 +91,7 @@ function PianoKey(props) {
     });
 
     return (
-        <div className="drum-pad" onClick={playSound} >
+        <div className={btnClass}  ref={btnRef} onClick={playSound} >
             {props.letter}
             <audio ref={audioRef} src={props.audio} id={props.letter}></audio>
         </div>
