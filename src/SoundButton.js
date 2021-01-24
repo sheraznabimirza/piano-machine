@@ -64,7 +64,7 @@ function PianoKey(props) {
         
     }
 
-    const btnUp = () => {
+    const handleKeyUp = () => {
         const classUp = "drum-pad"
         setBtnClass(classUp);
     }
@@ -73,7 +73,6 @@ function PianoKey(props) {
         
         const newTitle = props.letter + " is playing!";
         audioRef.current.play();
-        
         props.setTitle(newTitle);
     }
 
@@ -83,10 +82,6 @@ function PianoKey(props) {
             btnDown();
             playSound();
         }
-    }
-
-    const handleKeyUp = () => {
-        btnUp();
     }
 
     useEffect(() => {
